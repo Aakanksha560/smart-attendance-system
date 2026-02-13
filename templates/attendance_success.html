@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Marked</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f3d2e, #021e14);
+            font-family: Arial, sans-serif;
+            color: #00ff9d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .success-box {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(0, 255, 180, 0.4);
+            max-width: 350px;
+            width: 90%;
+        }
+
+        .success-box h1 {
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        .check {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #00ff9d;
+            color: #000;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="success-box">
+    <div class="check">✅</div>
+    <h1>Attendance Marked</h1>
+    <p>Your attendance has been recorded successfully.</p>
+    <a href="/student" class="btn">Back to Dashboard</a>
+</div>
+
+</body>
+</html>

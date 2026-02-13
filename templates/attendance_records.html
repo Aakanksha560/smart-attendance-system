@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+
+<div class="dashboard">
+    <h1>Attendance Report</h1>
+
+    <div class="card">
+        <form method="post">
+            <select name="subject" required>
+                {% for s in subjects %}
+                <option value="{{s.id}}">{{s.subject_name}}</option>
+                {% endfor %}
+            </select>
+            <input type="date" name="date" required>
+            <button class="btn">View Report</button>
+        </form>
+    </div>
+
+    {% if report %}
+    <div class="card">
+        <table class="report-table">
+            <tr>
+                <th>Student Name</th>
+                <th>Subject</th>
+                <th>Status</th>
+            </tr>
+
+            {% for r in report %}
+            <tr>
+                <td>{{ r.name }}</td>
+                <td>{{ r.subject_name }}</td>
+                <td class="{{ 'present' if r.status=='PRESENT' else 'absent' }}">
+                    {{ r.status }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

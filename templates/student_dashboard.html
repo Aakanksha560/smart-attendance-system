@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body>
+
+<div class="dashboard">
+    <h1>Student Dashboard</h1>
+
+    <div class="card">
+        <h3>Live QR Scan (Secure)</h3>
+
+        <!-- Camera start button -->
+        <button class="btn" onclick="startScanner()">Start Camera</button>
+
+        <!-- Camera feed area -->
+        <div id="reader" style="margin-top:15px;"></div>
+        <p class="note">Camera access is required to scan QR.</p>
+    </div>
+
+    <div class="card">
+        <h3>Manual Entry (Only if camera fails)</h3>
+        <form action="/mark" method="post">
+            <input name="code" placeholder="Enter QR Code">
+            <button class="btn">Mark Attendance</button>
+        </form>
+    </div>
+</div>
+
+<script>
+let qrScanner;
+
+function startScanner() {
+    qrScanner = new Html5Qrcode("reader");
+
+    qrScanner.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        qrCodeMessage => {
+            fetch('/mark', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: 'code=' + qrCodeMessage
+            })
+            .then(res => res.text())
+            .then(data => {
+                if(data === "OK"){
+                    alert("✅ Attendance Marked");
+                    qrScanner.stop();
+                } else {
+                    alert("❌ Invalid or Expired QR");
+                }
+            });
+        },
+        errorMessage => {
+            console.log(errorMessage);
+        }
+    );
+}
+</script>
+
+</body>
+</html>

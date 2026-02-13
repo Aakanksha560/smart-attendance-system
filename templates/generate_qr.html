@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Generated</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+
+<div class="qr-page">
+    <div class="qr-card">
+        <h2>QR Session Generated</h2>
+        <p>Session Code:</p>
+        <h3>{{ code }}</h3>
+
+        <img src="{{ url_for('static', filename=qr_image) }}" class="qr-img">
+
+        <p class="note">Scan this QR to mark attendance</p>
+        <a href="/teacher" class="btn">Back to Dashboard</a>
+    </div>
+</div>
+
+</body>
+</html>
